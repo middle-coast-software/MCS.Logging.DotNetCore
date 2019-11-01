@@ -8,7 +8,7 @@ using System.Text;
 
 namespace MCS.Logging.DotNetCore
 {
-    public static class WebHelper
+    public static class McsWebHelper
     {
         public static void LogWebUsage(string product, string layer, string activityName,
             HttpContext context, Dictionary<string, object> additionalInfo = null)

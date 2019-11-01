@@ -22,7 +22,7 @@ namespace MCS.Logging.DotNetCore.Attributes
             foreach (var key in context.RouteData.Values?.Keys)
                 dict.Add($"RouteData-{key}", (string)context.RouteData.Values[key]);
 
-            WebHelper.LogWebUsage(_product, _layer, _activityName, context.HttpContext, dict);
+            McsWebHelper.LogWebUsage(_product, _layer, _activityName, context.HttpContext, dict);
         }
     }
 }

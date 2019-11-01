@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace MCS.Logging.DotNetCore.Middleware
 {
-    public sealed class CustomExceptionHandlerMiddleware
+    public sealed class McsExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ExceptionHandlerOptions _options;
         private readonly Func<object, Task> _clearCacheHeadersDelegate;
         private string _product, _layer;
 
-        public CustomExceptionHandlerMiddleware(string product, string layer,
+        public McsExceptionHandlerMiddleware(string product, string layer,
             RequestDelegate next,
             ILoggerFactory loggerFactory,
             IOptions<ExceptionHandlerOptions> options,
@@ -43,7 +43,7 @@ namespace MCS.Logging.DotNetCore.Middleware
             }
             catch (Exception ex)
             {
-                WebHelper.LogWebError(_product, _layer, ex, context);
+                McsWebHelper.LogWebError(_product, _layer, ex, context);
 
                 PathString originalPath = context.Request.Path;
                 if (_options.ExceptionHandlingPath.HasValue)

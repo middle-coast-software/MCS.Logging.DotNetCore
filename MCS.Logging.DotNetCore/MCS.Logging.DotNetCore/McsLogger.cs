@@ -10,6 +10,8 @@ namespace MCS.Logging.DotNetCore
 {
     public static class McsLogger
     {
+
+
         private static readonly ILogger _perfLogger;
         private static readonly ILogger _usageLogger;
         private static readonly ILogger _errorLogger;

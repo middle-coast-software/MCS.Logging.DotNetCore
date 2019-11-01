@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MCS.Logging.DotNetCore.Models
 {
-    public class CustomErrorResponse
+    public class McsErrorResponse
     {
         public string ErrorId { get; set; }
         public string Message { get; set; }
