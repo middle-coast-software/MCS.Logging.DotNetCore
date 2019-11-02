@@ -1,4 +1,6 @@
-﻿using MCS.Logging.DotNetCore.Models;
+﻿using MCS.Logging.DotNetCore.Builders;
+using MCS.Logging.DotNetCore.Models;
+using MCS.Logging.DotNetCore.Settings;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -8,43 +10,42 @@ using System.Text;
 
 namespace MCS.Logging.DotNetCore
 {
-    public static class McsLogger
+    public class McsLogger
     {
+        private readonly ILogger _perfLogger;
+        private readonly ILogger _usageLogger;
+        private readonly ILogger _errorLogger;
+        private readonly ILogger _diagnosticLogger;
+        private readonly McsLoggingSettings _settings;
 
+        public McsLogger(McsLoggingSettings settings)
+        {
+            _settings = settings;
+            
+            var logToFile = _settings.McsLogDestinationTypes.ToUpper().Contains("FILE");
+            var logToSQL = _settings.McsLogDestinationTypes.ToUpper().Contains("SQL");
 
-        private static readonly ILogger _perfLogger;
-        private static readonly ILogger _usageLogger;
-        private static readonly ILogger _errorLogger;
-        private static readonly ILogger _diagnosticLogger;
-
-        static McsLogger()
-        { 
-            _perfLogger = new LoggerConfiguration()
-                .WriteTo.File(path: Environment.GetEnvironmentVariable("LOGFILE_PERF"))
-                .CreateLogger();
-
-            _usageLogger = new LoggerConfiguration()
-                .WriteTo.File(path: Environment.GetEnvironmentVariable("LOGFILE_USAGE"))
-                .CreateLogger();
-
-            _errorLogger = new LoggerConfiguration()
-                .WriteTo.File(path: Environment.GetEnvironmentVariable("LOGFILE_ERROR"))
-                .CreateLogger();
-
-            _diagnosticLogger = new LoggerConfiguration()
-                .WriteTo.File(path: Environment.GetEnvironmentVariable("LOGFILE_DIAG"))
-                .CreateLogger();
+            if (logToSQL && logToFile)
+            {
+                FileSqlLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, _settings);
+            }
+            else if (logToFile)
+                FileLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, _settings);
+            else if (logToSQL)
+            {
+                SqlLogBuilder.BuildLogger(ref _perfLogger, ref _usageLogger, ref _errorLogger, ref _diagnosticLogger, _settings);
+            }
         }
 
-        public static void WritePerf(LogDetail infoToLog)
+        public void WritePerf(LogDetail infoToLog)
         {
             _perfLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
         }
-        public static void WriteUsage(LogDetail infoToLog)
+        public void WriteUsage(LogDetail infoToLog)
         {
             _usageLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
         }
-        public static void WriteError(LogDetail infoToLog)
+        public void WriteError(LogDetail infoToLog)
         {
             if (infoToLog.Exception != null)
             {
@@ -56,7 +57,7 @@ namespace MCS.Logging.DotNetCore
             }
             _errorLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
         }
-        public static void WriteDiagnostic(LogDetail infoToLog)
+        public void WriteDiagnostic(LogDetail infoToLog)
         {
             var writeDiagnostics =
                 Convert.ToBoolean(Environment.GetEnvironmentVariable("DIAGNOSTICS_ON"));
@@ -66,7 +67,7 @@ namespace MCS.Logging.DotNetCore
             _diagnosticLogger.Write(LogEventLevel.Information, "{@LogDetail}", infoToLog);
         }
 
-        private static string GetMessageFromException(Exception ex)
+        private string GetMessageFromException(Exception ex)
         {
             if (ex.InnerException != null)
                 return GetMessageFromException(ex.InnerException);
@@ -74,7 +75,7 @@ namespace MCS.Logging.DotNetCore
             return ex.Message;
         }
 
-        private static string FindProcName(Exception ex)
+        private string FindProcName(Exception ex)
         {
             var sqlEx = ex as SqlException;
             if (sqlEx != null)
