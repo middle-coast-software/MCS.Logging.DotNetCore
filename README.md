@@ -6,7 +6,10 @@ Simple global logging library for Serilog in .Net Core
 
 First grab the [nuget package](https://www.nuget.org/packages/MCS.Logging.DotNetCore)
 
-Then you'll need a handlful of Environment Variables.
+### File Logging
+
+Then you'll need a config section.
+still iterating...will get back
 
 ### General
 McsLogDestinationTypes
@@ -20,12 +23,11 @@ LogBatchSize
 
 ### Helper Class
 For better control over your logging you'll want to build a helper class.
-There are a number of ways to write this, but here are a few examples.
+There are a number of ways to write this, but here are a few examples....pending
 
 General Logging - [WebHelper](.\Mcs.Logging.DotNetCore\Mcs.Logging.DotNetCore\McsWebHelper.cs)
 
 More examples forthcoming.
-
 
 ## How To Actually Log Sh*...stuff
 Now for the good stuff, it's time to hook all the pipes together.
