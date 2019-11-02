@@ -10,26 +10,26 @@ namespace MCS.Logging.DotNetCore
 {
     public static class McsWebHelper
     {
-        public static void LogWebUsage(string product, string layer, string activityName,
+        public static void LogWebUsage(McsLogger logger, string product, string layer, string activityName,
             HttpContext context, Dictionary<string, object> additionalInfo = null)
         {
             var details = GetWebFlogDetail(product, layer, activityName, context, additionalInfo);
-            McsLogger.WriteUsage(details);
+            logger.WriteUsage(details);
         }
 
-        public static void LogWebDiagnostic(string product, string layer, string message,
+        public static void LogWebDiagnostic(McsLogger logger, string product, string layer, string message,
             HttpContext context, Dictionary<string, object> diagnosticInfo = null)
         {
             var details = GetWebFlogDetail(product, layer, message, context, diagnosticInfo);
-            McsLogger.WriteDiagnostic(details);
+            logger.WriteDiagnostic(details);
         }
-        public static void LogWebError(string product, string layer, Exception ex,
+        public static void LogWebError(McsLogger logger, string product, string layer, Exception ex,
             HttpContext context)
         {
             var details = GetWebFlogDetail(product, layer, null, context, null);
             details.Exception = ex;
 
-            McsLogger.WriteError(details);
+            logger.WriteError(details);
         }
 
         public static LogDetail GetWebFlogDetail(string product, string layer,

@@ -12,7 +12,14 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/middle-coast-software/MCS.Logging.DotNetCore</RepositoryUrl>
     <PackageTags>logging serilog middlecoastsoftware</PackageTags>
-    <PackageReleaseNotes>1.0.0 - New Package</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.1 
+    - Fixed some loose ends.
+    - Config will now be a section in appsettings
+    - The logger is now intended to be injected, more in line with the global logging patterns in .Net Core
+1.0.0 - New Package</PackageReleaseNotes>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -77,8 +77,7 @@ namespace MCS.Logging.DotNetCore
 
         private string FindProcName(Exception ex)
         {
-            var sqlEx = ex as SqlException;
-            if (sqlEx != null)
+            if (ex is SqlException sqlEx)
             {
                 var procName = sqlEx.Procedure;
                 if (!string.IsNullOrEmpty(procName))

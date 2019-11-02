@@ -8,11 +8,13 @@ namespace MCS.Logging.DotNetCore.Filters
     public class TrackPerformanceFilter : IActionFilter
     {
         private PerfTracker _tracker;
-        private string _product, _layer;
-        public TrackPerformanceFilter(string product, string layer)
+        private readonly string _product, _layer;
+        private readonly McsLogger _logger;
+        public TrackPerformanceFilter(McsLogger logger, string product, string layer)
         {
             _product = product;
             _layer = layer;
+            _logger = logger;
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
@@ -27,7 +29,7 @@ namespace MCS.Logging.DotNetCore.Filters
             var details = McsWebHelper.GetWebFlogDetail(_product, _layer, activity,
                 context.HttpContext, dict);
 
-            _tracker = new PerfTracker(details);
+            _tracker = new PerfTracker(_logger, details);
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
