@@ -28,5 +28,6 @@ namespace MCS.Logging.DotNetCore.Models
         public Exception Exception { get; set; }  // the exception for error logging
         public string CorrelationId { get; set; } // exception shielding from server to client
         public Dictionary<string, object> AdditionalInfo { get; set; }  // everything else
+        public McsException CustomException { get; set; }
     }
 }

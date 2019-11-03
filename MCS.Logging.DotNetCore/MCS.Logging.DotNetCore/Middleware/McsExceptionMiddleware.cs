@@ -16,16 +16,13 @@ namespace MCS.Logging.DotNetCore.Middleware
         private readonly ExceptionHandlerOptions _options;
         private readonly Func<object, Task> _clearCacheHeadersDelegate;
         private readonly string _product, _layer;
-        private readonly McsLogger _logger;
 
         public McsExceptionHandlerMiddleware(string product, string layer,
             RequestDelegate next,
-            IOptions<ExceptionHandlerOptions> options,
-            McsLogger logger)
+            IOptions<ExceptionHandlerOptions> options)
         {
             _product = product;
             _layer = layer;
-            _logger = logger;
             _next = next;
             _options = options.Value;
             _clearCacheHeadersDelegate = ClearCacheHeaders;
@@ -43,7 +40,7 @@ namespace MCS.Logging.DotNetCore.Middleware
             }
             catch (Exception ex)
             {
-                McsWebHelper.LogWebError(_logger, _product, _layer, ex, context);
+                McsWebHelper.LogWebError(_product, _layer, ex, context);
 
                 PathString originalPath = context.Request.Path;
                 if (_options.ExceptionHandlingPath.HasValue)

@@ -11,13 +11,11 @@ namespace MCS.Logging.DotNetCore
     {
         private readonly Stopwatch _sw;
         private readonly LogDetail _infoToLog;
-        private readonly McsLogger _logger;
 
-        public PerfTracker(McsLogger logger, LogDetail details)
+        public PerfTracker(LogDetail details)
         {
             _sw = Stopwatch.StartNew();
             _infoToLog = details;
-            _logger = logger;
 
             var beginTime = DateTime.Now;
             if (_infoToLog.AdditionalInfo == null)
@@ -63,7 +61,7 @@ namespace MCS.Logging.DotNetCore
         {
             _sw.Stop();
             _infoToLog.ElapsedMilliseconds = _sw.ElapsedMilliseconds;
-            _logger.WritePerf(_infoToLog);
+            McsLogger.WritePerf(_infoToLog);
         }
     }
 }

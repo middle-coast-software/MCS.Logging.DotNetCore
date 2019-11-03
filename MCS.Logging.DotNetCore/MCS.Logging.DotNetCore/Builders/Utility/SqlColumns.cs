@@ -21,19 +21,19 @@ namespace MCS.Logging.DotNetCore.Builders.Utility
 
             colOptions.AdditionalColumns = new Collection<SqlColumn>
             {
-                new SqlColumn {DataType = SqlDbType.DateTime, ColumnName = "Timestamp"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Product"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Layer"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Message"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Hostname"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserId"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserName"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Exception"},
-                new SqlColumn {DataType = SqlDbType.Int, ColumnName = "ElapsedMilliseconds"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "CustomException"},
-                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AdditionalInfo"},
+                new SqlColumn {DataType = SqlDbType.DateTime, ColumnName = "Timestamp", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Product", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Layer", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Location", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Message", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Hostname", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserId", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "UserName", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "Exception", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.Int, ColumnName = "ElapsedMilliseconds", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "CorrelationId", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "CustomException", AllowNull = true},
+                new SqlColumn {DataType = SqlDbType.VarChar, ColumnName = "AdditionalInfo", AllowNull = true},
             };
 
             return colOptions;
