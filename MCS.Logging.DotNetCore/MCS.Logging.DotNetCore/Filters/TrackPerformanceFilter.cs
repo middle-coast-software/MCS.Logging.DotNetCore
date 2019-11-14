@@ -24,7 +24,7 @@ namespace MCS.Logging.DotNetCore.Filters
             foreach (var key in context.RouteData.Values?.Keys)
                 dict.Add($"RouteData-{key}", (string)context.RouteData.Values[key]);
 
-            var details = McsWebHelper.GetWebFlogDetail(_product, _layer, activity,
+            var details = McsWebHelper.GetWebLogDetail(_product, _layer, activity,
                 context.HttpContext, dict);
 
             _tracker = new PerfTracker(details);
