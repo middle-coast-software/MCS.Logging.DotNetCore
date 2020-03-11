@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>James Pusateri</Authors>
     <Company>Middle Coast Software LLC</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -20,9 +20,9 @@
     - Config will now be a section in appsettings
     - The logger is now intended to be injected, more in line with the global logging patterns in .Net Core
 1.0.0 - New Package</PackageReleaseNotes>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.3.0</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
+    <Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
